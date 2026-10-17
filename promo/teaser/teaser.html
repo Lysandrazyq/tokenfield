@@ -1,0 +1,31 @@
+<!doctype html><html lang="zh-CN"><head>
+<meta charset="UTF-8"/>
+<style>
+  @font-face { font-family: 'TKF'; src: url('./NotoSansSC-VF.ttf') format('truetype'); font-weight: 100 900; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: #000; }
+  #stage { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: #000; }
+  canvas#bg3d { position: absolute; inset: 0; }
+  #ui { position: absolute; inset: 0; pointer-events: none; font-family: 'TKF', 'PingFang SC', sans-serif; -webkit-font-smoothing: antialiased; }
+  .abs { position: absolute; will-change: transform, opacity; }
+  .grain { position: absolute; inset: 0; opacity: 0.04; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .bill { position: absolute; will-change: transform, opacity; background: #f5f0e8; border-radius: 6px;
+    box-shadow: 0 12px 50px rgba(0,0,0,0.88), 0 0 28px rgba(255,140,50,0.22), inset 0 0 0 1px rgba(255,255,255,0.1); overflow: hidden; }
+  .bill-line { height: 2px; border-radius: 1px; margin: 0 12px 8px; }
+  .bill-label { font-size: 11px; color: #888; margin: 8px 12px 4px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
+  .bill-amount { font-size: 22px; font-weight: 700; color: #1a1a1a; margin: 0 12px 8px; letter-spacing: -0.02em; }
+  .bill-name { font-size: 13px; color: #444; margin: 0 12px 4px; font-weight: 600; }
+  .bill-sub { font-size: 11px; color: #888; margin: 0 12px; }
+  .demoTag { display: inline-block; font-size: 9px; color: #fff; background: rgba(0,0,0,0.35); border-radius: 3px; padding: 1px 4px; margin-left: 4px; letter-spacing: 0.04em; vertical-align: middle; }
+</style>
+</head><body>
+<div id="stage">
+  <canvas id="bg3d" width="1080" height="1350"></canvas>
+  <div id="ui">
+    <!-- 账单卡片由 JS 动态创建 -->
+  </div>
+  <div class="grain"></div>
+</div>
+<script src="./teaser.js"></script>
+</body></html>
