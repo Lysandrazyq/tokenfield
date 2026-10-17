@@ -37,8 +37,8 @@ export function PageHeader({ title, subtitle, shared, right }: { title: string; 
 /** 区块标题：iOS 分组标题的样式 */
 export function SectionTitle({ title, right }: { title: string; right?: ReactNode }) {
   return (
-    <div className="flex items-baseline justify-between px-1 pb-2">
-      <h2 className="text-[20px] font-semibold tracking-[-0.02em]">{title}</h2>
+    <div className="flex items-baseline justify-between px-1 pb-2.5">
+      <h2 className="text-[15px] font-semibold tracking-[0.01em] text-label-2 uppercase">{title}</h2>
       {right}
     </div>
   )

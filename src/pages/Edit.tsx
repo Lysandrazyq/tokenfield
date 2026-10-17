@@ -121,7 +121,7 @@ export default function Edit() {
 
   return (
     <form onSubmit={save} className="space-y-5">
-      <PageHeader title={isNew ? '添加 AI' : a.name || '编辑'} subtitle={isNew ? '选一家，套餐和价格会自动带出来' : BILLING_LABEL[a.billing]} />
+      <PageHeader title={isNew ? '添加 AI' : a.name || '编辑'} subtitle={isNew ? undefined : BILLING_LABEL[a.billing]} />
 
       {!isNew && (
         <div data-shared={`acc-${a.id}`} className="card flex items-center gap-3 p-4!">

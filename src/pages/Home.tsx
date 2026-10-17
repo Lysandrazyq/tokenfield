@@ -82,16 +82,15 @@ function Focus({ a, now }: { a: Account; now: dayjs.Dayjs }) {
         <div className="flex items-center gap-4 rounded-[18px] bg-fill-2 p-4 smooth">
           <Ring progress={resetProgress} color="var(--reset)" size={52} />
           <div className="min-w-0 flex-1">
-            <div className="eyebrow">下次额度重置</div>
-            <div className="display mt-0.5 text-[26px]">{countdown(reset, now)}</div>
-            <div className="text-[12px] text-label-2">{reset.format('M月D日 HH:mm')}</div>
+            <div className="display text-[28px]">{countdown(reset, now)}</div>
+            <div className="text-[12px] text-label-3">重置于 {reset.format('M月D日 HH:mm')}</div>
           </div>
         </div>
       )}
 
       <div>
         <div className="flex items-baseline justify-between">
-          <span className="eyebrow">本周期用得值不值</span>
+          <span className="text-[13px] font-medium text-label-2">这个月用得值不值</span>
           <span className="text-[12px] text-label-3">已过 {Math.round(report.elapsed * 100)}%</span>
         </div>
         {report.verdict === 'unknown' ? (
@@ -126,8 +125,8 @@ function Focus({ a, now }: { a: Account; now: dayjs.Dayjs }) {
 
       <div>
         <div className="flex items-baseline justify-between">
-          <span className="eyebrow">记一次</span>
-          <span className="text-[12px] text-label-3">今天 {todayCount} 次</span>
+          <span className="text-[13px] font-medium text-label-2">记一次</span>
+          <span className="text-[12px] text-label-3">{todayCount > 0 ? `今天 ${todayCount} 次` : ""}</span>
         </div>
         <div className="mt-2 grid grid-cols-4 gap-2">
           {PROFILES.map((p) => (
@@ -163,7 +162,7 @@ export default function Home() {
       <div className="space-y-5">
         <header className="rise flex items-end justify-between px-1" style={{ '--i': 0 } as React.CSSProperties}>
           <div>
-            <p className="eyebrow">{now.format('M月D日 dddd')}</p>
+            <p className="text-[13px] text-label-3">{now.format('M月D日 dddd')}</p>
             <h1 className="display text-[34px]">概览</h1>
           </div>
           <a href="#/account/new" onClick={link('/account/new')} className="btn-plain px-4! py-2! text-[14px]" aria-label="添加 AI">
@@ -225,7 +224,7 @@ export default function Home() {
           <a href="#/card" onClick={link('/card', 'spend')} className="card press rise block p-5!" style={next()}>
             <div data-shared="spend">
               <div className="flex items-baseline justify-between">
-                <span className="eyebrow">本月 AI 花费</span>
+                <span className="eyebrow">本月花费</span>
                 <span className="text-[13px] text-accent">月报 ›</span>
               </div>
               <Amount value={formatCNY(shownTotal)} className="mt-1 block text-[44px]" />
