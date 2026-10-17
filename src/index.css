@@ -1,0 +1,491 @@
+@import 'tailwindcss';
+
+/* dark: 变体跟随 data-theme（跟随系统 / 手动），而不是只看系统偏好 */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/*
+ * TOKENFIELD 设计系统
+ *
+ * 一条动效主线：「一切从它来的地方来，回到它来的地方去」。
+ *   - 全站只有一种弹簧（response 0.5s / damping 0.82），所有位移、缩放都用它；
+ *     只有纯透明度变化用一条短的 ease-out。
+ *   - 页面切换走 View Transitions：进深 = 从右侧推入，返回 = 原路退回，
+ *     平级 tab = 按方向横移；被点的元素（AI 卡片、花费卡）直接变形成下一页的标题。
+ *   - 首次打开才有一次错峰入场，之后切页不再重播。
+ *
+ * 材质分两层（与 Apple Liquid Glass 的层级一致）：
+ *   - 浮在内容上的导航层（tab 栏、圆形按钮、返回键）= 液态玻璃，带边缘折射；
+ *   - 内容卡片 = 磨砂材质，安静，不抢戏。
+ */
+
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'HarmonyOS Sans SC', 'MiSans', system-ui, 'Microsoft YaHei', sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', 'HarmonyOS Sans SC', 'MiSans', system-ui, 'Microsoft YaHei', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+
+  /* 语义色：实际值在下面按明暗切换 */
+  --color-label: var(--label);
+  --color-label-2: var(--label-2);
+  --color-label-3: var(--label-3);
+  --color-fill: var(--fill);
+  --color-fill-2: var(--fill-2);
+  --color-sep: var(--sep);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: #fff;
+  --color-renew: var(--renew);
+  --color-reset: var(--reset);
+  --color-expiry: var(--expiry);
+  --color-danger: var(--danger);
+  --color-good: var(--good);
+
+  /* 弹簧：阻尼谐振子解析解采样成 linear()，response 0.5s、damping 0.82，约 690ms 稳定 */
+  --ease-spring: linear(0, 0.0206, 0.0733, 0.1464, 0.231, 0.3204, 0.4096, 0.4953, 0.5752, 0.6478, 0.7126, 0.7692, 0.818, 0.8594, 0.8939, 0.9223, 0.9452, 0.9635, 0.9777, 0.9886, 0.9967, 1.0025, 1.0065, 1.009, 1.0104, 1.011, 1.011, 1.0106, 1.0099, 1.009, 1.008, 1.007, 1.006, 1.0051, 1.0043, 1.0035, 1.0028, 1.0023, 1.0018, 1.0013, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --dur-spring: 690ms;
+  --dur-fade: 200ms;
+  --dur-press: 120ms;
+
+  /* 圆角：连续曲率（superellipse），不支持的浏览器自动退回普通圆角 */
+  --r-card: 26px;
+  --r-control: 14px;
+  --r-chip: 10px;
+}
+
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+  --page: #0a0b10;
+  --label: #f5f5f7;
+  --label-2: rgb(235 235 245 / 0.62);
+  --label-3: rgb(235 235 245 / 0.32);
+  --fill: rgb(120 120 128 / 0.24);
+  --fill-2: rgb(120 120 128 / 0.14);
+  --sep: rgb(255 255 255 / 0.08);
+  --accent: oklch(0.72 0.14 278);
+  --accent-soft: oklch(0.72 0.14 278 / 0.18);
+  --renew: oklch(0.74 0.12 278);
+  --reset: oklch(0.78 0.11 192);
+  --expiry: oklch(0.8 0.13 68);
+  --danger: oklch(0.7 0.17 22);
+  --good: oklch(0.78 0.13 155);
+  --material: rgb(30 32 44 / 0.52);
+  --material-edge: rgb(255 255 255 / 0.07);
+  --material-hi: rgb(255 255 255 / 0.1);
+  --material-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -12px rgb(0 0 0 / 0.5);
+  --glass-tint: rgb(40 42 58 / 0.3);
+  --glass-rim: rgb(255 255 255 / 0.22);
+  --glass-shade: rgb(0 0 0 / 0.35);
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --page: #f2f3f7;
+  --label: #0b0c10;
+  --label-2: rgb(60 60 67 / 0.66);
+  --label-3: rgb(60 60 67 / 0.34);
+  --fill: rgb(118 118 128 / 0.14);
+  --fill-2: rgb(118 118 128 / 0.08);
+  --sep: rgb(60 60 67 / 0.12);
+  --accent: oklch(0.56 0.2 278);
+  --accent-soft: oklch(0.56 0.2 278 / 0.12);
+  --renew: oklch(0.56 0.2 278);
+  --reset: oklch(0.6 0.12 200);
+  --expiry: oklch(0.66 0.16 58);
+  --danger: oklch(0.6 0.21 25);
+  --good: oklch(0.6 0.15 155);
+  --material: rgb(255 255 255 / 0.66);
+  --material-edge: rgb(0 0 0 / 0.05);
+  --material-hi: rgb(255 255 255 / 0.9);
+  --material-shadow: 0 1px 2px rgb(20 22 40 / 0.05), 0 12px 32px -14px rgb(20 22 40 / 0.18);
+  --glass-tint: rgb(255 255 255 / 0.22);
+  --glass-rim: rgb(255 255 255 / 0.85);
+  --glass-shade: rgb(30 34 60 / 0.16);
+}
+
+:root {
+  font-family: var(--font-sans);
+  background: var(--page);
+  color: var(--label);
+  scroll-padding-bottom: 7rem;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  font-size: 15px;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 大字收紧字距、小字放松：Apple 的字号相关 tracking */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 连续曲率圆角 */
+@utility smooth {
+  corner-shape: superellipse(1.5);
+}
+
+/* 内容材质：磨砂卡片 */
+@utility card {
+  position: relative;
+  border-radius: var(--r-card);
+  corner-shape: superellipse(1.5);
+  background: var(--material);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow:
+    inset 0 0 0 0.5px var(--material-edge),
+    inset 0 1px 0 var(--material-hi),
+    var(--material-shadow);
+  padding: 16px;
+}
+
+/* 分组列表（设置页那种），行与行之间是缩进的发丝线 */
+@utility group {
+  @apply card;
+  padding: 0;
+  overflow: hidden;
+  /* 行间发丝线从左侧 16px 起画，和 iOS 分组列表一致 */
+  & > * + * {
+    background-image: linear-gradient(var(--sep), var(--sep));
+    background-size: calc(100% - 16px) 0.5px;
+    background-position: 16px 0;
+    background-repeat: no-repeat;
+  }
+}
+
+@utility row {
+  @apply flex min-h-12 items-center gap-3 px-4 py-2.5;
+}
+
+/* 按压反馈：按下立刻缩（按下即响应，不等松手），松手用弹簧弹回 */
+@utility press {
+  transition:
+    transform var(--dur-spring) var(--ease-spring),
+    background-color var(--dur-fade) var(--ease-out),
+    opacity var(--dur-fade) var(--ease-out);
+  &:active {
+    transform: scale(0.97);
+    transition-duration: var(--dur-press);
+    transition-timing-function: var(--ease-out);
+  }
+}
+
+@utility input {
+  @apply w-full px-3.5 py-3 text-label outline-none placeholder:text-label-3;
+  font-size: 16px; /* ≥16px，iOS 聚焦时不会自动放大页面 */
+  border-radius: var(--r-control);
+  corner-shape: superellipse(1.5);
+  background: var(--fill-2);
+  box-shadow: inset 0 0 0 0.5px var(--sep);
+  transition: box-shadow var(--dur-fade) var(--ease-out), background-color var(--dur-fade) var(--ease-out);
+  &:focus {
+    background: var(--fill);
+    box-shadow:
+      inset 0 0 0 1px var(--accent),
+      0 0 0 4px var(--accent-soft);
+  }
+}
+
+select.input {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+@utility label {
+  @apply mb-1.5 block px-1 text-[13px] text-label-2;
+}
+
+@utility btn {
+  @apply press inline-flex items-center justify-center gap-1.5 px-5 py-3 text-[15px] font-semibold disabled:opacity-40;
+  border-radius: 999px;
+}
+
+@utility btn-primary {
+  @apply btn text-on-accent;
+  background: var(--accent);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.25),
+    0 8px 20px -8px var(--accent);
+}
+
+@utility btn-plain {
+  @apply btn text-label;
+  background: var(--fill);
+}
+
+@utility btn-danger {
+  @apply btn text-danger;
+  background: color-mix(in oklab, var(--danger) 14%, transparent);
+}
+
+@utility chip {
+  @apply press inline-flex items-center gap-1 px-3 py-1.5 text-[13px] text-label-2;
+  border-radius: 999px;
+  background: var(--fill-2);
+  box-shadow: inset 0 0 0 0.5px var(--sep);
+  &[aria-pressed='true'] {
+    color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 45%, transparent);
+  }
+}
+
+@utility eyebrow {
+  @apply text-[12px] font-medium tracking-[0.02em] text-label-2;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*
+ * 液态玻璃（导航层）。真正的边缘折射由 LiquidGlass 组件在 Chromium 上挂一个 SVG 位移滤镜，
+ * 这里是所有浏览器都有的部分：轻微着色 + 高光边 + 背光阴影。
+ */
+@utility liquid {
+  position: relative;
+  isolation: isolate;
+  background: var(--glass-tint);
+  backdrop-filter: blur(14px) saturate(190%) brightness(1.04);
+  -webkit-backdrop-filter: blur(14px) saturate(190%) brightness(1.04);
+  box-shadow:
+    inset 0 1px 0.5px var(--glass-rim),
+    inset 0 -1px 1px rgb(255 255 255 / 0.12),
+    inset 0 0 0 0.5px rgb(255 255 255 / 0.18),
+    0 10px 30px -10px var(--glass-shade),
+    0 1px 3px var(--glass-shade);
+  /* 斜向高光：模拟光从左上打在曲面上 */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      linear-gradient(160deg, rgb(255 255 255 / 0.28), transparent 38%),
+      linear-gradient(340deg, rgb(255 255 255 / 0.1), transparent 30%);
+    mix-blend-mode: soft-light;
+  }
+}
+
+/* 首次打开的错峰入场：只在 html.booting 期间生效，切页不重播 */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+}
+
+html.booting .rise {
+  animation:
+    rise var(--dur-spring) var(--ease-spring) backwards,
+    fade-in 400ms var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/*
+ * 页面切换（View Transitions）。
+ * 背景和导航栏各自有名字，不跟着页面动；只有 page 层按方向移动。
+ */
+::view-transition-group(*) {
+  animation-duration: var(--dur-spring);
+  animation-timing-function: var(--ease-spring);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-old(page) {
+  animation: page-out var(--dur-spring) var(--ease-spring) both;
+}
+
+::view-transition-new(page) {
+  animation: page-in var(--dur-spring) var(--ease-spring) both;
+}
+
+/* 共享元素：新旧两张图交叉淡化，位置和尺寸由 group 用同一条弹簧插值 */
+::view-transition-old(*):not(::view-transition-old(page)):not(::view-transition-old(root)) {
+  animation: fade-out var(--dur-fade) var(--ease-out) both;
+}
+
+html {
+  --from-x: 0px;
+  --to-x: 0px;
+  --from-scale: 1;
+  --to-scale: 1;
+}
+
+html[data-dir='forward'] {
+  --from-x: 28%;
+  --to-x: -10%;
+  --to-scale: 0.97;
+}
+
+html[data-dir='back'] {
+  --from-x: -10%;
+  --to-x: 28%;
+  --from-scale: 0.97;
+}
+
+html[data-dir='left'] {
+  --from-x: -24px;
+  --to-x: 24px;
+}
+
+html[data-dir='right'] {
+  --from-x: 24px;
+  --to-x: -24px;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateX(var(--from-x)) scale(var(--from-scale));
+  }
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateX(var(--to-x)) scale(var(--to-scale));
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* 开关：iOS 式胶囊 */
+@utility switch {
+  position: relative;
+  width: 51px;
+  height: 31px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--fill);
+  transition: background-color 250ms var(--ease-out);
+  &[aria-checked='true'] {
+    background: var(--good);
+  }
+  & > span {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 27px;
+    height: 27px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow:
+      0 3px 8px rgb(0 0 0 / 0.15),
+      0 3px 1px rgb(0 0 0 / 0.06);
+    transition:
+      translate var(--dur-spring) var(--ease-spring),
+      scale var(--dur-spring) var(--ease-spring);
+  }
+  &[aria-checked='true'] > span {
+    translate: 20px 0;
+  }
+  &:active > span {
+    scale: 1.12 1;
+  }
+}
+
+/* 滑杆 */
+input[type='range'].slider {
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+  --p: 50%;
+  &::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent) var(--p), var(--fill) var(--p));
+  }
+  &::-moz-range-track {
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent) var(--p), var(--fill) var(--p));
+  }
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    margin-top: -10px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow:
+      0 0.5px 4px rgb(0 0 0 / 0.12),
+      0 6px 13px rgb(0 0 0 / 0.12);
+    transition: scale var(--dur-spring) var(--ease-spring);
+  }
+  &:active::-webkit-slider-thumb {
+    scale: 1.15;
+  }
+  &::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after,
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 用户开了「降低透明度」：材质变实心 */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --material: var(--page);
+    --glass-tint: var(--page);
+  }
+}

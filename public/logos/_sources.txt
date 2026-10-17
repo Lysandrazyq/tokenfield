@@ -1,0 +1,9 @@
+- **chatgpt**: icon from <https://chatgpt.com/unauth-mweb/apple-touch-icon.png>
+- **claude**: icon from <https://assets.claude.com/95a868946ac8a31e5ff832e2899f294aa368b836.png?w=32&h=32>
+- **gemini**: icon from <https://www.gstatic.com/lamda/images/gemini_sparkle_4g_512_lt_f94943af3be039176192d.png>
+- **deepseek**: icon from <https://www.deepseek.com/favicon.ico>
+- **kimi**: icon from <https://www.kimi.com/pwa-192.png>
+- **glm**: icon from <https://bigmodel.cn/static/images/favicon.png>
+- **qwen**: icon from <https://img.alicdn.com/imgextra/i4/O1CN01Qd3F9s1ilWmLJo56P_!!6000000004453-55-tps-51-51.svg>
+- **doubao**: icon from <https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/favicon/new-doubao/76x76.png>
+- **minimax**: icon from <https://www.minimax.cn/favicon.ico>

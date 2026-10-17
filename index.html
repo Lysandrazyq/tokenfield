@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0b10" />
+    <title>额度终端 TOKENFIELD</title>
+    <script>
+      // 首帧前定主题，避免浅色用户看到一闪黑屏（逻辑与 src/lib/appearance.ts 一致）
+      try {
+        var a = JSON.parse(localStorage.getItem('tkf-appearance') || '{}')
+        var m = a.theme || 'system'
+        var t = m === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : m
+        document.documentElement.dataset.theme = t
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', t === 'dark' ? '#0a0b10' : '#f2f3f7')
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
