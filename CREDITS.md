@@ -1,5 +1,9 @@
 # CREDITS.md — 资源来源和授权
 
+## 汇率数据
+
+原生应用使用 [Frankfurter](https://frankfurter.dev/) 的公开 API，限定 [European Central Bank 数据源](https://frankfurter.dev/providers/ecb/)的 USD/CNY 每日参考汇率。参考日期与同步时间在设置中分别显示，非实时成交价。请求固定货币对，不发送用户账本、账号或 Codex 内容。
+
 ## 字体
 
 | 字体 | 授权 | 来源 |

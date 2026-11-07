@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""Generate the dependency-free Xcode project; source folders stay synchronized."""
+from pathlib import Path
+
+root = Path(__file__).resolve().parent
+project = root / 'Tokenfield.xcodeproj'
+project.mkdir(exist_ok=True)
+project.joinpath('project.pbxproj').write_text('''// !$*UTF8*$!
+{
+ archiveVersion = 1;
+ classes = {};
+ objectVersion = 77;
+ objects = {
+  A00000000000000000000001 = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = YES; LastUpgradeCheck = 2700; TargetAttributes = {A00000000000000000000010 = {CreatedOnToolsVersion = 27.2;}; A00000000000000000000020 = {CreatedOnToolsVersion = 27.2; TestTargetID = A00000000000000000000010;};};}; buildConfigurationList = A00000000000000000000002; compatibilityVersion = "Xcode 16.0"; developmentRegion = "zh-Hans"; hasScannedForEncodings = 0; knownRegions = (en, "zh-Hans", Base); mainGroup = A00000000000000000000003; packageReferences = (A00000000000000000000040); preferredProjectObjectVersion = 77; productRefGroup = A00000000000000000000004; projectDirPath = ""; projectRoot = ""; targets = (A00000000000000000000010, A00000000000000000000020, A00000000000000000000030);};
+  A00000000000000000000002 = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000005,A00000000000000000000006); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
+  A00000000000000000000003 = {isa = PBXGroup; children = (A00000000000000000000007,A00000000000000000000008,A00000000000000000000009,A00000000000000000000004); sourceTree = "<group>";};
+  A00000000000000000000004 = {isa = PBXGroup; children = (A00000000000000000000011,A00000000000000000000021,A00000000000000000000031); name = Products; sourceTree = "<group>";};
+  A00000000000000000000005 = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_TESTABILITY = YES; GCC_OPTIMIZATION_LEVEL = 0; ONLY_ACTIVE_ARCH = YES; GCC_PREPROCESSOR_DEFINITIONS = ("DEBUG=1","$(inherited)"); IPHONEOS_DEPLOYMENT_TARGET = 17.0; SDKROOT = iphoneos; SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)"; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; SWIFT_VERSION = 5.0;}; name = Debug;};
+  A00000000000000000000006 = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; IPHONEOS_DEPLOYMENT_TARGET = 17.0; SDKROOT = iphoneos; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_VERSION = 5.0;}; name = Release;};
+  A00000000000000000000007 = {isa = PBXFileSystemSynchronizedRootGroup; path = Tokenfield; sourceTree = "<group>";};
+  A00000000000000000000008 = {isa = PBXFileSystemSynchronizedRootGroup; path = TokenfieldUITests; sourceTree = "<group>";};
+  A00000000000000000000009 = {isa = PBXFileSystemSynchronizedRootGroup; path = TokenfieldTests; sourceTree = "<group>";};
+  A00000000000000000000010 = {isa = PBXNativeTarget; buildConfigurationList = A00000000000000000000012; buildPhases = (A00000000000000000000013,A00000000000000000000014,A00000000000000000000015); buildRules = (); dependencies = (); fileSystemSynchronizedGroups = (A00000000000000000000007); name = Tokenfield; packageProductDependencies = (A00000000000000000000041); productName = Tokenfield; productReference = A00000000000000000000011; productType = "com.apple.product-type.application";};
+  A00000000000000000000011 = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tokenfield.app; sourceTree = BUILT_PRODUCTS_DIR;};
+  A00000000000000000000012 = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000016,A00000000000000000000017); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
+  A00000000000000000000013 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000014 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (A00000000000000000000042); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000015 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000016 = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = QuotaLedgerIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 12; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_CFBundleDisplayName = "额度终端"; INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity"; INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES; INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"; INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"; IPHONEOS_DEPLOYMENT_TARGET = 17.0; MARKETING_VERSION = 1.5.0; PRODUCT_BUNDLE_IDENTIFIER = space.lysandra.quotakeeper; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SUPPORTS_MACCATALYST = NO; SWIFT_EMIT_LOC_STRINGS = YES; TARGETED_DEVICE_FAMILY = "1,2";}; name = Debug;};
+  A00000000000000000000017 = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = QuotaLedgerIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 12; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_CFBundleDisplayName = "额度终端"; INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity"; INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES; INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"; INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"; IPHONEOS_DEPLOYMENT_TARGET = 17.0; MARKETING_VERSION = 1.5.0; PRODUCT_BUNDLE_IDENTIFIER = space.lysandra.quotakeeper; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SUPPORTS_MACCATALYST = NO; SWIFT_EMIT_LOC_STRINGS = YES; TARGETED_DEVICE_FAMILY = "1,2";}; name = Release;};
+  A00000000000000000000020 = {isa = PBXNativeTarget; buildConfigurationList = A00000000000000000000022; buildPhases = (A00000000000000000000023,A00000000000000000000024,A00000000000000000000025); buildRules = (); dependencies = (A00000000000000000000028); fileSystemSynchronizedGroups = (A00000000000000000000008); name = TokenfieldUITests; packageProductDependencies = (); productName = TokenfieldUITests; productReference = A00000000000000000000021; productType = "com.apple.product-type.bundle.ui-testing";};
+  A00000000000000000000021 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TokenfieldUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR;};
+  A00000000000000000000022 = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000026,A00000000000000000000027); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
+  A00000000000000000000023 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000024 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000025 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000026 = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; PRODUCT_BUNDLE_IDENTIFIER = space.lysandra.quotakeeper.uitests; PRODUCT_NAME = "$(TARGET_NAME)"; TARGETED_DEVICE_FAMILY = "1,2"; TEST_TARGET_NAME = Tokenfield;}; name = Debug;};
+  A00000000000000000000027 = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; PRODUCT_BUNDLE_IDENTIFIER = space.lysandra.quotakeeper.uitests; PRODUCT_NAME = "$(TARGET_NAME)"; TARGETED_DEVICE_FAMILY = "1,2"; TEST_TARGET_NAME = Tokenfield;}; name = Release;};
+  A00000000000000000000028 = {isa = PBXTargetDependency; target = A00000000000000000000010; targetProxy = A00000000000000000000029;};
+  A00000000000000000000029 = {isa = PBXContainerItemProxy; containerPortal = A00000000000000000000001; proxyType = 1; remoteGlobalIDString = A00000000000000000000010; remoteInfo = Tokenfield;};
+  A00000000000000000000030 = {isa = PBXNativeTarget; buildConfigurationList = A00000000000000000000032; buildPhases = (A00000000000000000000033,A00000000000000000000034,A00000000000000000000035); buildRules = (); dependencies = (A00000000000000000000028); fileSystemSynchronizedGroups = (A00000000000000000000009); name = TokenfieldTests; packageProductDependencies = (A00000000000000000000041); productName = TokenfieldTests; productReference = A00000000000000000000031; productType = "com.apple.product-type.bundle.unit-test";};
+  A00000000000000000000031 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TokenfieldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR;};
+  A00000000000000000000032 = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000036,A00000000000000000000037); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
+  A00000000000000000000033 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000034 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (A00000000000000000000043); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000035 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000036 = {isa = XCBuildConfiguration; buildSettings = {BUNDLE_LOADER = "$(TEST_HOST)"; CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; PRODUCT_BUNDLE_IDENTIFIER = space.lysandra.quotakeeper.tests; PRODUCT_NAME = "$(TARGET_NAME)"; TARGETED_DEVICE_FAMILY = "1,2"; TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tokenfield.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Tokenfield";}; name = Debug;};
+  A00000000000000000000037 = {isa = XCBuildConfiguration; buildSettings = {BUNDLE_LOADER = "$(TEST_HOST)"; CODE_SIGN_STYLE = Automatic; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; PRODUCT_BUNDLE_IDENTIFIER = space.lysandra.quotakeeper.tests; PRODUCT_NAME = "$(TARGET_NAME)"; TARGETED_DEVICE_FAMILY = "1,2"; TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tokenfield.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Tokenfield";}; name = Release;};
+  A00000000000000000000040 = {isa = XCLocalSwiftPackageReference; relativePath = Packages/TokenfieldCore;};
+  A00000000000000000000041 = {isa = XCSwiftPackageProductDependency; package = A00000000000000000000040; productName = TokenfieldCore;};
+  A00000000000000000000042 = {isa = PBXBuildFile; productRef = A00000000000000000000041;};
+  A00000000000000000000043 = {isa = PBXBuildFile; productRef = A00000000000000000000041;};
+ };
+ rootObject = A00000000000000000000001;
+}
+''')
+# The two platform targets share synchronized Swift sources and one private cloud container.
+project_file = project / 'project.pbxproj'
+content = project_file.read_text()
+content = content.replace('targets = (A00000000000000000000010, A00000000000000000000020, A00000000000000000000030);', 'targets = (A00000000000000000000010, A00000000000000000000020, A00000000000000000000030, A00000000000000000000050);')
+content = content.replace('children = (A00000000000000000000011,A00000000000000000000021,A00000000000000000000031);', 'children = (A00000000000000000000011,A00000000000000000000021,A00000000000000000000031,A00000000000000000000051);')
+content = content.replace('ASSETCATALOG_COMPILER_APPICON_NAME = QuotaLedgerIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME', 'CODE_SIGN_ENTITLEMENTS = Config/Tokenfield.entitlements; ASSETCATALOG_COMPILER_APPICON_NAME = QuotaLedgerIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME')
+content = content.replace('A00000000000000000000010 = {CreatedOnToolsVersion = 27.2;};', 'A00000000000000000000010 = {CreatedOnToolsVersion = 27.2; SystemCapabilities = {com.apple.iCloud = {enabled = 1;};};}; A00000000000000000000050 = {CreatedOnToolsVersion = 27.2; SystemCapabilities = {com.apple.iCloud = {enabled = 1;}; com.apple.Sandbox = {enabled = 1;};};};')
+mac_settings = 'ASSETCATALOG_COMPILER_APPICON_NAME = QuotaLedgerIcon; ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor; CODE_SIGN_ENTITLEMENTS = Config/TokenfieldMac.entitlements; CODE_SIGN_STYLE = Automatic; COMBINE_HIDPI_IMAGES = YES; CURRENT_PROJECT_VERSION = 12; ENABLE_APP_SANDBOX = YES; ENABLE_HARDENED_RUNTIME = YES; ENABLE_USER_SELECTED_FILES = readwrite; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_CFBundleDisplayName = "额度终端"; INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity"; MACOSX_DEPLOYMENT_TARGET = 14.0; MARKETING_VERSION = 1.5.0; PRODUCT_BUNDLE_IDENTIFIER = space.lysandra.quotakeeper; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = macosx; SUPPORTED_PLATFORMS = macosx; SUPPORTS_MACCATALYST = NO; SWIFT_EMIT_LOC_STRINGS = YES; SWIFT_VERSION = 5.0;'
+mac_objects = r'''  A00000000000000000000050 = {isa = PBXNativeTarget; buildConfigurationList = A00000000000000000000052; buildPhases = (A00000000000000000000053,A00000000000000000000054,A00000000000000000000055); buildRules = (); dependencies = (); fileSystemSynchronizedGroups = (A00000000000000000000007); name = TokenfieldMac; packageProductDependencies = (A00000000000000000000041); productName = TokenfieldMac; productReference = A00000000000000000000051; productType = "com.apple.product-type.application";};
+  A00000000000000000000051 = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TokenfieldMac.app; sourceTree = BUILT_PRODUCTS_DIR;};
+  A00000000000000000000052 = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000056,A00000000000000000000057); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release;};
+  A00000000000000000000053 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000054 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (A00000000000000000000058); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000055 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000056 = {isa = XCBuildConfiguration; buildSettings = {MAC_SETTINGS}; name = Debug;};
+  A00000000000000000000057 = {isa = XCBuildConfiguration; buildSettings = {MAC_SETTINGS}; name = Release;};
+  A00000000000000000000058 = {isa = PBXBuildFile; productRef = A00000000000000000000041;};
+'''.replace('MAC_SETTINGS', mac_settings)
+content = content.replace(' };\n rootObject =', mac_objects + ' };\n rootObject =')
+project_file.write_text(content)
+
+schemes = project / 'xcshareddata/xcschemes'
+schemes.mkdir(parents=True, exist_ok=True)
+schemes.joinpath('Tokenfield.xcscheme').write_text('''<?xml version="1.0" encoding="UTF-8"?>
+<Scheme LastUpgradeVersion="2700" version="1.3">
+ <BuildAction parallelizeBuildables="YES" buildImplicitDependencies="YES"><BuildActionEntries><BuildActionEntry buildForTesting="YES" buildForRunning="YES" buildForProfiling="YES" buildForArchiving="YES" buildForAnalyzing="YES"><BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="A00000000000000000000010" BuildableName="Tokenfield.app" BlueprintName="Tokenfield" ReferencedContainer="container:Tokenfield.xcodeproj"/></BuildActionEntry></BuildActionEntries></BuildAction>
+ <TestAction buildConfiguration="Debug" selectedDebuggerIdentifier="Xcode.DebuggerFoundation.Debugger.LLDB" selectedLauncherIdentifier="Xcode.IDEFoundation.Launcher.LLDB" shouldUseLaunchSchemeArgsEnv="YES"><Testables><TestableReference skipped="NO" parallelizable="NO"><BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="A00000000000000000000020" BuildableName="TokenfieldUITests.xctest" BlueprintName="TokenfieldUITests" ReferencedContainer="container:Tokenfield.xcodeproj"/></TestableReference><TestableReference skipped="NO" parallelizable="NO"><BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="A00000000000000000000030" BuildableName="TokenfieldTests.xctest" BlueprintName="TokenfieldTests" ReferencedContainer="container:Tokenfield.xcodeproj"/></TestableReference></Testables></TestAction>
+ <LaunchAction buildConfiguration="Debug" selectedDebuggerIdentifier="Xcode.DebuggerFoundation.Debugger.LLDB" selectedLauncherIdentifier="Xcode.IDEFoundation.Launcher.LLDB" launchStyle="0" useCustomWorkingDirectory="NO" ignoresPersistentStateOnLaunch="NO" debugDocumentVersioning="YES" debugServiceExtension="internal" allowLocationSimulation="YES"><BuildableProductRunnable runnableDebuggingMode="0"><BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="A00000000000000000000010" BuildableName="Tokenfield.app" BlueprintName="Tokenfield" ReferencedContainer="container:Tokenfield.xcodeproj"/></BuildableProductRunnable></LaunchAction>
+ <ProfileAction buildConfiguration="Release" shouldUseLaunchSchemeArgsEnv="YES" savedToolIdentifier="" useCustomWorkingDirectory="NO" debugDocumentVersioning="YES"><BuildableProductRunnable runnableDebuggingMode="0"><BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="A00000000000000000000010" BuildableName="Tokenfield.app" BlueprintName="Tokenfield" ReferencedContainer="container:Tokenfield.xcodeproj"/></BuildableProductRunnable></ProfileAction>
+ <AnalyzeAction buildConfiguration="Debug"/><ArchiveAction buildConfiguration="Release" revealArchiveInOrganizer="YES"/>
+</Scheme>
+''')
+ios_scheme = schemes.joinpath('Tokenfield.xcscheme').read_text()
+mac_scheme = ios_scheme.replace('A00000000000000000000010', 'A00000000000000000000050').replace('BuildableName="Tokenfield.app"', 'BuildableName="TokenfieldMac.app"').replace('BlueprintName="Tokenfield"', 'BlueprintName="TokenfieldMac"')
+start = mac_scheme.index(' <TestAction')
+end = mac_scheme.index(' <LaunchAction')
+mac_scheme = mac_scheme[:start] + mac_scheme[end:]
+schemes.joinpath('TokenfieldMac.xcscheme').write_text(mac_scheme)
+print(project)

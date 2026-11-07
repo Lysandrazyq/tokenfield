@@ -1,7 +1,28 @@
-node_modules
-dist
-dev-dist
-android/app/build
-android/.gradle
-*.log
-shots
+node_modules/
+dist/
+.tools/
+.build/
+.superpowers/
+*.tsbuildinfo
+.DS_Store
+ios/App/Pods/
+ios/App/App/public/
+ios/App/App/capacitor.config.json
+ios/App/App.xcworkspace/xcuserdata/
+ios/App/App.xcodeproj/xcuserdata/
+native-ios/.build/
+native-ios/Packages/*/.build/
+native-ios/Tokenfield.xcodeproj/xcuserdata/
+native-ios/Tokenfield.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Local development and user data
+Tokenfield 开发库*/
+AI-HANDOFF.md
+docs/development/
+docs/superpowers/
+releases/
+**/xcuserdata/
+**/.build/
+*.p12
+*.mobileprovision
+Development.local.xcconfig
