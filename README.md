@@ -1,4 +1,4 @@
-# Tokenfield · 额度终端
+    Tokenfield · 额度终端
 
 把 AI 订阅、花费和 Codex 额度放在一起。
 
@@ -8,7 +8,7 @@ Tokenfield 是一款面向 Mac 和 iPhone 的原生 AI 使用管理工具。记�
 
 ![Tokenfield Mac 概览](docs/images/1.5/mac-home.jpg)
 
-## 能做什么
+    能做什么
 
 - **管理 AI 订阅与花费**：订阅、按量付费和余额账户放在同一份账本中，续费与到期事项集中查看。
 - **快捷记录与月报**：用完记一次，记错可撤销；保存历史月报，导出备份。
@@ -19,7 +19,7 @@ Tokenfield 是一款面向 Mac 和 iPhone 的原生 AI 使用管理工具。记�
 
 使用系统字体、原生控件和深浅色外观，动效遵守系统“减少动态效果”设置。
 
-## Codex 额度与任务
+    Codex 额度与任务
 
 ![Codex 额度与任务看板](docs/images/1.5/mac-codex.jpg)
 
@@ -27,19 +27,19 @@ Tokenfield 是一款面向 Mac 和 iPhone 的原生 AI 使用管理工具。记�
 
 额度来自最近有效日志，不主动查询服务器；超过时效或重置时间会显示未知。任务没有可靠总量，因此不显示虚构的完成百分比。同目录切换 Codex 账号后，需在额度提醒中重新确认来源并等待新上报。
 
-## 自动汇率
+    自动汇率
 
 ![自动美元兑人民币参考汇率](docs/images/1.5/mac-exchange-rate.jpg)
 
 在“设置 → 美元兑人民币”切换自动或手动。自动模式使用 [Frankfurter 提供的 ECB 参考汇率](https://frankfurter.dev/providers/ecb/)，成功后缓存 6 小时；也可点“立即更新”。这是每日参考值，非实时成交价。更新只影响当前计算，已保存月报保留原记录。
 
-## Mac 与 iPhone
+    Mac 与 iPhone
 
 两个原生端共用账本格式，可通过 JSON 导出、导入迁移记录。当前发行包尚未启用 iCloud 自动同步；Codex 本机看板、额度提醒与状态栏圆环仅在 Mac 提供。
 
 本页截图来自 1.5.0 原生 Mac 版，账本和 Codex 会话使用示例数据。
 
-## 安装 Mac 版
+    安装 Mac 版
 
 1. 从 [Releases](https://github.com/Lysandrazyq/tokenfield/releases/latest) 下载通用 DMG，支持 Apple 芯片与 Intel。
 2. 更新前正常退出旧应用，将“额度终端.app”拖入 Applications。
@@ -49,7 +49,7 @@ Tokenfield 是一款面向 Mac 和 iPhone 的原生 AI 使用管理工具。记�
 
 当前包采用本地临时签名，尚未经过 Developer ID 签名与 Apple 公证，首次打开可能受到 Gatekeeper 限制。校验文件与安装包一同提供。
 
-## 项目结构
+    项目结构
 
 | 路径 | 内容 |
 | --- | --- |
